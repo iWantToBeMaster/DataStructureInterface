@@ -55,6 +55,26 @@ _Bool ListInsert_sq(SqList *const sqlistptr, const ElemType elem, const int inde
 //操作结果:在线性表*sqlistptr第index个位置之前插入新的元素elem,*sqlistptr长度增加1
 
 
+_Bool ListDelete_sq(SqList *const sqlistptr, const int index, ElemType *const retptr);
+//初始条件:线性表*sqlistptr已经存在且非空,1<=i<=ListLength_sq(sqlistptr)
+//操作结果:删除*sqlistptr的第index个元素,并用指针retptr返回其值,线性表*sqlistptr的长度减1
+
+
+_Bool ListPriorElem_sq(SqList *const sqlistptr, const ElemType curelem, ElemType *const retelemptr);
+//初始条件:线性表*sqlistptr已经存
+//操作结果:若curelem是线性表*sqlistptr中的元素,且不是第一个,则用指针retelemptr返回它的前驱,否则操作失败
+
+
+_Bool ListNextElem_sq(SqList *const sqlistptr, const ElemType curelem, ElemType *const retelemptr);
+//初始条件:线性表*sqlistptr已经存
+//操作结果:若curelem是线性表*sqlistptr中的元素,且不是最后一个,则用指针retelemptr返回它的后继,否则操作失败
+
+
+
+void ListTraverse_sq(SqList *const sqlistptr);
+//初始条件:线性表*sqlistptr已经存在
+//操作结果:依次对*sqlist的每个数据元素进行输出
+
 
 
 _Bool IsGreaterThan(const ElemType e1, const ElemType e2);
