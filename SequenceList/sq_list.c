@@ -4,6 +4,7 @@
 #include <string.h>
 #include "sq_list.h"
 
+
 _Bool ListInitial_sq(SqList * const sqlistptr)
 {//时间复杂度O(1)
 	sqlistptr->elembase = (ElemType *)malloc(sizeof(ElemType)*LIST_INIT_SIZE);//分配内存空间
