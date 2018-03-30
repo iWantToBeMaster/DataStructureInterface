@@ -71,7 +71,7 @@ _Bool ListNextElem_sq(SqList *const sqlistptr, const ElemType curelem, ElemType 
 //操作结果:若curelem是线性表*sqlistptr中的元素,且不是最后一个,则用指针retelemptr返回它的后继,否则操作失败
 
 
-_Bool ListMergeTwo_sq(SqList *const sqlistaptr, SqList *const sqlistbptr, SqList *const retlistptr);
+_Bool ListMerge_sq(SqList *const sqlistaptr, SqList *const sqlistbptr, SqList *const retlistptr);
 //初始条件:线性表*sqlistaptr和*sqlistbptr已经存,且有序,顺序相同.*retlistptr为空表
 //操作结果:线性表*sqlistaptr和线性表*sqlistbptr归并产生的新表仍然有序,由指针retlistptr返回
 
