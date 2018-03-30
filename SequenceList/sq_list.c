@@ -4,7 +4,6 @@
 #include <string.h>
 #include "sq_list.h"
 
-
 _Bool ListInitial_sq(SqList * const sqlistptr)
 {//时间复杂度O(1)
 	sqlistptr->elembase = (ElemType *)malloc(sizeof(ElemType)*LIST_INIT_SIZE);//分配内存空间
@@ -17,8 +16,6 @@ _Bool ListInitial_sq(SqList * const sqlistptr)
 
 void ListClear_sq(SqList * const sqlistptr)
 {//时间复杂度O(1)
-	if (NULL == sqlistptr->elembase)//如果表不存在,退出
-		exit(EXIT_FAILURE);
 	sqlistptr->elembase = (ElemType *)realloc(sqlistptr->elembase, sizeof(ElemType)*LIST_INIT_SIZE);//存储空间重置
 	sqlistptr->size = LIST_INIT_SIZE;	//存储容量重置
 	sqlistptr->length = 0;				//表长度重置为0
@@ -36,8 +33,6 @@ void ListDestroy_sq(SqList * const sqlistptr)
 
 int ListLength_sq(const SqList *const sqlistptr)
 {//时间复杂度O(1)
-	if (NULL == sqlistptr->elembase)//如果表不存在,退出
-		exit(EXIT_FAILURE);
 	return sqlistptr->length;//返回线性表元素个数
 }
 
@@ -50,8 +45,6 @@ _Bool ListIsEmpty_sq(const SqList * const sqlistptr)
 
 _Bool ListGetElem_sq(const SqList *const sqlistptr, const int index, ElemType *const elemptr)
 {//时间复杂度O(1)
-	if (NULL == sqlistptr->elembase)//如果表不存在,退出
-		exit(EXIT_FAILURE);
 	if (index<1 || index>sqlistptr->length)//元素位置不正确返回false
 		return false;
 	*elemptr = *(sqlistptr->elembase + index - 1);
@@ -60,8 +53,6 @@ _Bool ListGetElem_sq(const SqList *const sqlistptr, const int index, ElemType *c
 
 _Bool ListLocate_sq(const SqList *const sqlistptr, const ElemType elem, _Bool (*compare)(const ElemType, const ElemType), int *const indexptr)
 {//时间复杂度O(n)
-	if (NULL == sqlistptr->elembase)//如果表不存在,退出
-		exit(EXIT_FAILURE);
 	const ElemType *ptr = sqlistptr->elembase;
 	int i = 1;
 	for (; i <= sqlistptr->length; ++i)
@@ -78,8 +69,6 @@ _Bool ListInsert_sq(SqList *const sqlistptr, const ElemType elem, const int inde
 {
 	ElemType *insposptr = NULL;
 
-	if (NULL == sqlistptr->elembase)//如果表不存在,退出
-		exit(EXIT_FAILURE);
 	if (index<1 || index>(sqlistptr->length + 1))//元素位置不正确,返回false
 		return false;
 	if (sqlistptr->length == sqlistptr->size)//如果线性表当前容量满,增加表的容量
@@ -93,7 +82,7 @@ _Bool ListInsert_sq(SqList *const sqlistptr, const ElemType elem, const int inde
 		}
 		sqlistptr->size += LIST_INCREMENT_SIZE;
 	}
-	insposptr = sqlistptr + index - 1;							//elem要插入的位置
+	insposptr = sqlistptr->elembase + index - 1;						//elem要插入的位置
 	for (ElemType *p = sqlistptr->elembase + sqlistptr->length; p > insposptr; --p)
 		*p = *(p - 1);//第index及后面的元素向后移动一个位置
 	*insposptr = elem;
@@ -105,8 +94,6 @@ _Bool ListDelete_sq(SqList *const sqlistptr, const int index, ElemType *const re
 {
 	ElemType ret = *(sqlistptr->elembase + index - 1);
 
-	if (NULL == sqlistptr->elembase)//如果表不存在,退出
-		exit(EXIT_FAILURE);
 	if (0 == sqlistptr->length)//如果表为空,则返回false
 		return false;
 	if (index<1 || index>sqlistptr->length)//元素位置不正确,返回false
@@ -129,8 +116,6 @@ _Bool ListPriorElem_sq(SqList *const sqlistptr, const ElemType curelem, ElemType
 {
 	ElemType *ptr = sqlistptr->elembase + 1;
 
-	if (NULL == sqlistptr->elembase)//如果表不存在,退出
-		exit(EXIT_FAILURE);
 	if (curelem == *sqlistptr->elembase)//第一个元素与curelem相等返回false
 		return false;
 	for (; ptr <= sqlistptr->elembase + sqlistptr->length - 1; ++ptr)//在线性表中寻找curelem元素
@@ -146,8 +131,6 @@ _Bool ListNextElem_sq(SqList *const sqlistptr, const ElemType curelem, ElemType 
 {
 	ElemType *ptr = sqlistptr->elembase;
 
-	if (NULL == sqlistptr->elembase)//如果表不存在,退出
-		exit(EXIT_FAILURE);
 	if (curelem == *(sqlistptr->elembase + sqlistptr->length - 1))//最后一个元素与curelem相等返回false
 		return false;
 	for (; ptr <= sqlistptr->elembase + sqlistptr->length - 2; ++ptr)//在线性表中寻找curelem元素
@@ -159,7 +142,68 @@ _Bool ListNextElem_sq(SqList *const sqlistptr, const ElemType curelem, ElemType 
 	return true;
 }
 
+_Bool ListMergeTwo_sq(SqList *const sqlistaptr, SqList *const sqlistbptr, SqList *const retlistptr)
+{
+	int i = 1, j = 1, k = 1;
+	while (i <= sqlistaptr->length&&j <= sqlistbptr->length)
+	{
+		if (*(sqlistaptr->elembase + i - 1) < *(sqlistbptr->elembase + j - 1))
+		{
+			if (!ListInsert_sq(retlistptr, *(sqlistaptr->elembase + i - 1), k++))
+				return false;
+			++i;
+		}
+		else
+		{
+			if (!ListInsert_sq(retlistptr, *(sqlistbptr->elembase + j - 1), k++))
+				return false;
+			++j;
+		}
+	}
+	--i, --j;
+	while (++i <= sqlistaptr->length)
+	{
+		if (!ListInsert_sq(retlistptr, *(sqlistaptr->elembase + i - 1), k++))
+			return false;
+	}
+	while (++j <= sqlistbptr->length)
+	{
+		if (!ListInsert_sq(retlistptr, *(sqlistbptr->elembase + j - 1), k++))
+			return false;
+	}
+	return true;
+}
 
+void ListSort_sq(SqList *const sqlistptr)
+{
+	ElemType *p = sqlistptr->elembase - 1, *q = p + 1, temp;
+
+	while (++p < sqlistptr->elembase + sqlistptr->length - 1)
+	{
+		q = p;
+		while (++q <= sqlistptr->elembase + sqlistptr->length - 1)
+			if (*p > *q)
+			{
+				temp = *p;
+				*p = *q;
+				*q = temp;
+			}
+	}
+}
+
+_Bool ListCopy_sq(SqList *const sqsrcptr, SqList *const sqdestptr)
+{
+	if (NULL == (sqdestptr->elembase = (ElemType *)realloc(sqdestptr->elembase, sqsrcptr->size)))//分配相同的表空间
+		return false;
+
+	ElemType *srcptr = sqsrcptr->elembase, *desptr = sqdestptr->elembase;
+
+	while (srcptr <= sqsrcptr->elembase + sqsrcptr->length - 1)//拷贝表中的数据
+		*desptr++ = *srcptr++;
+	sqdestptr->length = sqsrcptr->length;
+	sqdestptr->size = sqsrcptr->size;
+	return true;
+}
 
 void ListTraverse_sq(SqList *const sqlistptr)
 {
