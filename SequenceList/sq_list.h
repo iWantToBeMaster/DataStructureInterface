@@ -4,8 +4,8 @@
 #include <stdbool.h>
 #include <stdarg.h>
 
-#define LIST_INIT_SIZE				20	//线性表存储空间的初始分配量
-#define LIST_INCREMENT_SIZE			5	//线性表存储空间的分配增量
+#define LIST_INIT_SIZE				100	//线性表存储空间的初始分配量
+#define LIST_INCREMENT_SIZE			10	//线性表存储空间的分配增量
 
 typedef int ElemType;
 
