@@ -3,11 +3,11 @@
 
 #include <stdbool.h>
 
-typedef int ElemType;
+typedef int SglyLnkElemType;
 
 typedef struct slnknode
 {
-	ElemType elem;
+	SglyLnkElemType elem;
 	struct slnknode *next;
 }*SLnkPosition,SLnkNode;
 
@@ -27,7 +27,7 @@ void ListDestroy_slnk(SLnkList *const slnklistptr);
 void ListClear_slnk(SLnkList *const slnklistptr);
 //将链表*slnklistptr重置为空表,并释放原链表的结点空间,表结构依然存在
 
-_Bool ListInsNodeFirst_slnk(SLnkList *const slnklistptr, SLnkPosition slnkpos);
+_Bool ListInsNodeFirst_slnk(SLnkList *const slnklistptr, const SLnkPosition inspos);
 //将slnkpos所值结点插入在链表*slnklistptr的第一个结点之前
 
 _Bool ListDelNodeFirst_slnk(SLnkList *const slnklistptr, SLnkPosition *const slnkposret);
@@ -46,10 +46,10 @@ _Bool ListInsNodeBefore_slnk(SLnkList *const slnklistptr, SLnkPosition lspos, SL
 _Bool ListInsNodeAfter_slnk(SLnkList *const slnklistptr, SLnkPosition lspos, SLnkPosition inspos);
 //lspos指向线性链表*slnklistptr中的一个结点,将inspos所之结点插在lspos所指结点之后,并且修改指针lspos指向新插入的结点
 
-void ListSetCurElem_slnk(SLnkPosition curpos, const ElemType elem);
+void ListSetCurElem_slnk(SLnkPosition curpos, const SglyLnkElemType elem);
 //curpos指向线性链表中的一个结点,用elem更新curpos所指结点中数据元素的值
 
-ElemType ListGetCurElem_slnk(SLnkPosition curpos);
+SglyLnkElemType ListGetCurElem_slnk(SLnkPosition curpos);
 //curpos指向线性链表中的一个结点,返回curpos所指结点中数据元素的值
 
 _Bool ListIsEmpty_slnk(const SLnkList *const slnklistptr);
@@ -73,7 +73,7 @@ _Bool ListNextPos_slnk(const SLnkList *const slnklistptr, const SLnkPosition cur
 _Bool ListLocatePos_slnk(const SLnkList *const slnklistptr, const int index, SLnkPosition *retpos);
 //用指针retpos返回线性链表*slnklistptr中第index个结点的位置
 
-_Bool ListLocateElem_slnk(const SLnkList *const slnklistptr, const ElemType elem, _Bool(*compare)(ElemType, ElemType), SLnkPosition *retpos);
+_Bool ListLocateElem_slnk(const SLnkList *const slnklistptr, const SglyLnkElemType elem, _Bool(*compare)(SglyLnkElemType, SglyLnkElemType), SLnkPosition *retpos);
 //用指针retpos返回线性链表*slnklistptr中第一个与elem满足compare()判定关系的元素位置,若不存在返回NULL
 
 void ListTraverse_slnk(const SLnkList *const slnklistptr);
@@ -82,23 +82,23 @@ void ListTraverse_slnk(const SLnkList *const slnklistptr);
 
 
 
-_Bool IsGreaterThan(const ElemType e1, const ElemType e2);
+_Bool IsGreaterThan(const SglyLnkElemType e1, const SglyLnkElemType e2);
 //如果e1>e2返回true,否则返回false
 
 
-_Bool IsGreaterThanOrEqual(const ElemType e1, const ElemType e2);
+_Bool IsGreaterThanOrEqual(const SglyLnkElemType e1, const SglyLnkElemType e2);
 //如果e1>=e2返回true,否则返回false
 
 
-_Bool IsEqual(const ElemType e1, const ElemType e2);
+_Bool IsEqual(const SglyLnkElemType e1, const SglyLnkElemType e2);
 //如果e1=e2返回true,否则返回false
 
 
-_Bool IsLessThan(const ElemType e1, const ElemType e2);
+_Bool IsLessThan(const SglyLnkElemType e1, const SglyLnkElemType e2);
 //如果e1<e2返回true,否则返回false
 
 
-_Bool IsLessThanOrEqual(const ElemType e1, const ElemType e2);
+_Bool IsLessThanOrEqual(const SglyLnkElemType e1, const SglyLnkElemType e2);
 //如果e1<=e2返回true,否则返回false
 
 
