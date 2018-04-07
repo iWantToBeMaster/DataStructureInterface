@@ -9,7 +9,7 @@ void NodeFree(SLnkPosition *posptr);
 
 _Bool ListInitial_slnk(SLnkList *const slnklistptr)
 {
-	if (!NodeAllocation(slnklistptr->head,INT_MAX))//为头结点分配空间
+	if (!NodeAllocation(&slnklistptr->head,INT_MAX))//为头结点分配空间
 		return false;
 	slnklistptr->rear = slnklistptr->head;//初始化尾指针
 	slnklistptr->length = 0;//表长度初始化为0
@@ -227,8 +227,10 @@ void ListTraverse_slnk(const SLnkList *const slnklistptr)
 
 _Bool NodeAllocation(SLnkPosition *posptr, SglyLnkElemType elem)
 {
-	if (NULL == (*posptr = malloc(sizeof(SLnkNode))))
+	if (NULL == (*posptr = (SLnkPosition)malloc(sizeof(SLnkNode))))
 		return false;
+	(*posptr)->elem = elem;
+	(*posptr)->next = NULL;
 	return true;
 }
 
