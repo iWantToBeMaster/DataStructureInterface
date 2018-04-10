@@ -47,11 +47,11 @@ _Bool ListInsNodeBefore_dbllnk(DblLnkList *const slnklistptr, DblLnkPosition lsp
 _Bool ListInsNodeAfter_dbllnk(DblLnkList *const slnklistptr, DblLnkPosition lspos, DblLnkPosition inspos);
 //lspos指向线性链表*slnklistptr中的一个结点,将inspos所之结点插在lspos所指结点之后,并且修改指针lspos指向新插入的结点
 
+_Bool ListDelNodeBefore_dbllnk(DblLnkList *const slnklistptr, DblLnkPosition lspos, DblLnkPosition *retpos);
+//lspos指向线性链表*slnklistptr中的一个结点,将删除lspos的直接前驱结点,由指针retpos返回删除的结点,如果失败retpos返回NULL
 
-
-//缺少delbefore  和  delafter
-
-
+_Bool ListDelNodeAfter_dbllnk(DblLnkList *const slnklistptr, DblLnkPosition lspos, DblLnkPosition *retpos);
+//lspos指向线性链表*slnklistptr中的一个结点,将删除lspos的直接后继结点,由指针retpos返回删除的结点,如果失败retpos返回NULL
 
 void ListSetCurElem_dbllnk(DblLnkPosition curpos, const DblLnkElemType elem);
 //curpos指向线性链表中的一个结点,用elem更新curpos所指结点中数据元素的值
@@ -90,19 +90,19 @@ void ListTraverseDescend_dbllnk(const DblLnkList *const slnklistptr);
 //逆序依次输出线性链表*slnklistptr中的每一个元素
 
 
-_Bool IsGreaterThan(const DblLnkElemType e1, const DblLnkElemType e2);
+_Bool IsGreaterThan_dbllnk(const DblLnkElemType e1, const DblLnkElemType e2);
 //如果e1>e2返回true,否则返回false
 
 
-_Bool IsGreaterThanOrEqual(const DblLnkElemType e1, const DblLnkElemType e2);
+_Bool IsGreaterThanOrEqual_dbllnk(const DblLnkElemType e1, const DblLnkElemType e2);
 //如果e1>=e2返回true,否则返回false
 
 
-_Bool IsEqual(const DblLnkElemType e1, const DblLnkElemType e2);
+_Bool IsEqual_dbllnk(const DblLnkElemType e1, const DblLnkElemType e2);
 //如果e1=e2返回true,否则返回false
 
 
-_Bool IsLessThan(const DblLnkElemType e1, const DblLnkElemType e2);
+_Bool IsLessThan_dbllnk(const DblLnkElemType e1, const DblLnkElemType e2);
 //如果e1<e2返回true,否则返回false
 
 

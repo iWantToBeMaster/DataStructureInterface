@@ -46,6 +46,12 @@ _Bool ListInsNodeBefore_slnk(SLnkList *const slnklistptr, SLnkPosition lspos, SL
 _Bool ListInsNodeAfter_slnk(SLnkList *const slnklistptr, SLnkPosition lspos, SLnkPosition inspos);
 //lspos指向线性链表*slnklistptr中的一个结点,将inspos所之结点插在lspos所指结点之后,并且修改指针lspos指向新插入的结点
 
+_Bool ListDelNodeBefore_slnk(SLnkList *const slnklistptr, SLnkPosition lspos, SLnkPosition *retpos);
+//lspos指向线性链表*slnklistptr中的一个结点,将删除lspos的直接前驱结点,由指针retpos返回删除的结点,如果失败retpos返回NULL
+
+_Bool ListDelNodeAfter_slnk(SLnkList *const slnklistptr, SLnkPosition lspos, SLnkPosition *retpos);
+//lspos指向线性链表*slnklistptr中的一个结点,将删除lspos的直接后继结点,由指针retpos返回删除的结点,如果失败retpos返回NULL
+
 void ListSetCurElem_slnk(SLnkPosition curpos, const SglyLnkElemType elem);
 //curpos指向线性链表中的一个结点,用elem更新curpos所指结点中数据元素的值
 
@@ -82,23 +88,23 @@ void ListTraverse_slnk(const SLnkList *const slnklistptr);
 
 
 
-_Bool IsGreaterThan(const SglyLnkElemType e1, const SglyLnkElemType e2);
+_Bool IsGreaterThan_slnk(const SglyLnkElemType e1, const SglyLnkElemType e2);
 //如果e1>e2返回true,否则返回false
 
 
-_Bool IsGreaterThanOrEqual(const SglyLnkElemType e1, const SglyLnkElemType e2);
+_Bool IsGreaterThanOrEqual_slnk(const SglyLnkElemType e1, const SglyLnkElemType e2);
 //如果e1>=e2返回true,否则返回false
 
 
-_Bool IsEqual(const SglyLnkElemType e1, const SglyLnkElemType e2);
+_Bool IsEqual_slnk(const SglyLnkElemType e1, const SglyLnkElemType e2);
 //如果e1=e2返回true,否则返回false
 
 
-_Bool IsLessThan(const SglyLnkElemType e1, const SglyLnkElemType e2);
+_Bool IsLessThan_slnk(const SglyLnkElemType e1, const SglyLnkElemType e2);
 //如果e1<e2返回true,否则返回false
 
 
-_Bool IsLessThanOrEqual(const SglyLnkElemType e1, const SglyLnkElemType e2);
+_Bool IsLessThanOrEqual_slnk(const SglyLnkElemType e1, const SglyLnkElemType e2);
 //如果e1<=e2返回true,否则返回false
 
 

@@ -4,12 +4,12 @@
 #include <limits.h>
 #include "sglylnk_list.h"
 
-_Bool NodeAllocation(SLnkPosition *posptr, SglyLnkElemType elem);
-void NodeFree(SLnkPosition *posptr);
+_Bool SlnkListNodeAllocation(SLnkPosition *posptr, SglyLnkElemType elem);
+void SlnkListNodeFree(SLnkPosition *posptr);
 
 _Bool ListInitial_slnk(SLnkList *const slnklistptr)
 {
-	if (!NodeAllocation(&slnklistptr->head,INT_MAX))//为头结点分配空间
+	if (!SlnkListNodeAllocation(&slnklistptr->head,INT_MAX))//为头结点分配空间
 		return false;
 	slnklistptr->rear = slnklistptr->head;//初始化尾指针
 	slnklistptr->length = 0;//表长度初始化为0
@@ -25,7 +25,7 @@ void ListDestroy_slnk(SLnkList *const slnklistptr)
 	{
 		q = p;
 		p = p->next;
-		NodeFree(&p);
+		SlnkListNodeFree(&p);
 	}
 	slnklistptr->head = slnklistptr->rear = NULL;//表结构置空
 	slnklistptr->length = 0;//表长度值0
@@ -122,6 +122,40 @@ _Bool ListInsNodeAfter_slnk(SLnkList *const slnklistptr, SLnkPosition lspos, SLn
 	if (slnklistptr->rear == p)//如果时插在尾结点的后面,则重置尾结点
 		slnklistptr->rear = inspos;
 	++slnklistptr->length;//表的长度加1
+	return true;
+}
+
+_Bool ListDelNodeBefore_slnk(SLnkList *const slnklistptr, SLnkPosition lspos,SLnkPosition *retpos)
+{
+	SLnkPosition p = slnklistptr->head, q = slnklistptr->head;
+
+	*retpos = NULL;
+	while ((p->next != lspos) && p->next)//求lspos的前驱结点
+		p = p->next;
+	if (NULL == p->next)//如果没有找到前驱,则返回失败
+		return false;
+	while ((q->next != p) && (q->next))//求p的前驱结点
+		q = q->next;
+	if (NULL == q->next)//如果没有找到前驱,则返回失败
+		return false;
+	q->next = p->next;//删除操作
+	*retpos = p;//指针返回删除的结点
+	--slnklistptr->length;//表长度减1
+	return true;
+}
+
+_Bool ListDelNodeAfter_slnk(SLnkList *const slnklistptr, SLnkPosition lspos, SLnkPosition *retpos)
+{
+	SLnkPosition p = slnklistptr->head;
+
+	*retpos = NULL;
+	while (p && (p != lspos))//表中是否存在lspos结点
+		p = p->next;
+	if (NULL == p || NULL == p->next)//表中不存在lspos结点,或者lspos没有后继结点,返回false
+		return false;
+	lspos->next = lspos->next->next;//删除操作
+	*retpos = lspos->next;//指针返回删除的结点
+	--slnklistptr->length;//表长度减1
 	return true;
 }
 
@@ -225,7 +259,7 @@ void ListTraverse_slnk(const SLnkList *const slnklistptr)
 	printf("\n");
 }
 
-_Bool NodeAllocation(SLnkPosition *posptr, SglyLnkElemType elem)
+_Bool SlnkListNodeAllocation(SLnkPosition *posptr, SglyLnkElemType elem)
 {
 	if (NULL == (*posptr = (SLnkPosition)malloc(sizeof(SLnkNode))))
 		return false;
@@ -234,32 +268,32 @@ _Bool NodeAllocation(SLnkPosition *posptr, SglyLnkElemType elem)
 	return true;
 }
 
-void NodeFree(SLnkPosition *posptr)
+void SlnkListNodeFree(SLnkPosition *posptr)
 {
 	free(*posptr);
 }
 
-_Bool IsGreaterThan(const SglyLnkElemType e1, const SglyLnkElemType e2)
+_Bool IsGreaterThan_slnk(const SglyLnkElemType e1, const SglyLnkElemType e2)
 {
 	return e1 > e2;
 }
 
-_Bool IsGreaterThanOrEqual(const SglyLnkElemType e1, const SglyLnkElemType e2)
+_Bool IsGreaterThanOrEqual_slnk(const SglyLnkElemType e1, const SglyLnkElemType e2)
 {
 	return e1 >= e2;
 }
 
-_Bool IsEqual(const SglyLnkElemType e1, const SglyLnkElemType e2)
+_Bool IsEqual_slnk(const SglyLnkElemType e1, const SglyLnkElemType e2)
 {
 	return e1 == e2;
 }
 
-_Bool IsLessThan(const SglyLnkElemType e1, const SglyLnkElemType e2)
+_Bool IsLessThan_slnk(const SglyLnkElemType e1, const SglyLnkElemType e2)
 {
 	return e2 < e2;
 }
 
-_Bool IsLessThanOrEqual(const SglyLnkElemType e1, const SglyLnkElemType e2)
+_Bool IsLessThanOrEqual_slnk(const SglyLnkElemType e1, const SglyLnkElemType e2)
 {
 	return e2 <= e2;
 }

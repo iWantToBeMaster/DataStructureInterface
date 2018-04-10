@@ -139,6 +139,43 @@ _Bool ListInsNodeAfter_dbllnk(DblLnkList *const slnklistptr, DblLnkPosition lspo
 	return true;
 }
 
+_Bool ListDelNodeBefore_dbllnk(DblLnkList *const slnklistptr, DblLnkPosition lspos, DblLnkPosition *retpos)
+{
+	DblLnkPosition p = slnklistptr->head, q = slnklistptr->head;
+
+	*retpos = NULL;
+	while ((p->next != lspos) && p->next)//求lspos的前驱结点
+		p = p->next;
+	if (NULL == p->next)//如果没有找到前驱,则返回失败
+		return false;
+	while ((q->next != p) && (q->next))//求p的前驱结点
+		q = q->next;
+	if (NULL == q->next)//如果没有找到前驱,则返回失败
+		return false;
+	q->next = p->next;//建立后继关系
+	lspos->prev = q;//建立前驱关系
+	*retpos = p;//指针返回删除的结点
+	--slnklistptr->length;//表长度减1
+	return true;
+
+}
+
+_Bool ListDelNodeAfter_dbllnk(DblLnkList *const slnklistptr, DblLnkPosition lspos, DblLnkPosition *retpos)
+{
+	DblLnkPosition p = slnklistptr->head;
+
+	*retpos = NULL;
+	while (p && (p != lspos))//表中是否存在lspos结点
+		p = p->next;
+	if (NULL == p || NULL == p->next)//表中不存在lspos结点,或者lspos没有后继结点,返回false
+		return false;
+	lspos->next = lspos->next->next;//建立后继关系
+	lspos->next->prev = lspos;//建立前驱关系
+	*retpos = lspos->next;//指针返回删除的结点
+	--slnklistptr->length;//表长度减1
+	return true;
+}
+
 void ListSetCurElem_dbllnk(DblLnkPosition curpos, const DblLnkElemType elem)
 {
 	curpos->elem = elem;//设置当前结点的元素的值
@@ -265,27 +302,27 @@ void NodeFree(DblLnkPosition *posptr)
 	free(*posptr);
 }
 
-_Bool IsGreaterThan(const DblLnkElemType e1, const DblLnkElemType e2)
+_Bool IsGreaterThan_dbllnk(const DblLnkElemType e1, const DblLnkElemType e2)
 {
 	return e1 > e2;
 }
 
-_Bool IsGreaterThanOrEqual(const DblLnkElemType e1, const DblLnkElemType e2)
+_Bool IsGreaterThanOrEqual_dbllnk(const DblLnkElemType e1, const DblLnkElemType e2)
 {
 	return e1 >= e2;
 }
 
-_Bool IsEqual(const DblLnkElemType e1, const DblLnkElemType e2)
+_Bool IsEqual_dbllnk(const DblLnkElemType e1, const DblLnkElemType e2)
 {
 	return e1 == e2;
 }
 
-_Bool IsLessThan(const DblLnkElemType e1, const DblLnkElemType e2)
+_Bool IsLessThan_dbllnk(const DblLnkElemType e1, const DblLnkElemType e2)
 {
 	return e2 < e2;
 }
 
-_Bool IsLessThanOrEqual(const DblLnkElemType e1, const DblLnkElemType e2)
+_Bool IsLessThanOrEqual_dbllnk(const DblLnkElemType e1, const DblLnkElemType e2)
 {
 	return e2 <= e2;
 }
