@@ -4,8 +4,8 @@
 #include <stdbool.h>
 #include <stdarg.h>
 
-#define LIST_INIT_SIZE				100	//线性表存储空间的初始分配量
-#define LIST_INCREMENT_SIZE			10	//线性表存储空间的分配增量
+#define LIST_INIT_SIZE				20	//线性表存储空间的初始分配量
+#define LIST_INCREMENT_SIZE			5	//线性表存储空间的分配增量
 
 typedef int ElemType;
 
@@ -71,7 +71,7 @@ _Bool ListNextElem_sq(SqList *const sqlistptr, const ElemType curelem, ElemType 
 //操作结果:若curelem是线性表*sqlistptr中的元素,且不是最后一个,则用指针retelemptr返回它的后继,否则操作失败
 
 
-_Bool ListMerge_sq(SqList *const sqlistaptr, SqList *const sqlistbptr, SqList *const retlistptr);
+_Bool ListMergeTwo_sq(SqList *const sqlistaptr, SqList *const sqlistbptr, SqList *const retlistptr);
 //初始条件:线性表*sqlistaptr和*sqlistbptr已经存,且有序,顺序相同.*retlistptr为空表
 //操作结果:线性表*sqlistaptr和线性表*sqlistbptr归并产生的新表仍然有序,由指针retlistptr返回
 

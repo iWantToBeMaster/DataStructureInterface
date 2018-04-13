@@ -142,7 +142,7 @@ _Bool ListNextElem_sq(SqList *const sqlistptr, const ElemType curelem, ElemType 
 	return true;
 }
 
-_Bool ListMerge_sq(SqList *const sqlistaptr, SqList *const sqlistbptr, SqList *const retlistptr)
+_Bool ListMergeTwo_sq(SqList *const sqlistaptr, SqList *const sqlistbptr, SqList *const retlistptr)
 {
 	int i = 1, j = 1, k = 1;
 	while (i <= sqlistaptr->length&&j <= sqlistbptr->length)
