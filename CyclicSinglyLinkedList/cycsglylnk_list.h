@@ -85,9 +85,6 @@ _Bool ListLocateElem_cycslnk(const CycSLnkList *const slnklistptr, const CycSgly
 void ListTraverse_cycslnk(const CycSLnkList *const slnklistptr);
 //依次输出线性链表*slnklistptr中的每一个元素
 
-
-
-
 _Bool IsGreaterThan_cycslnk(const CycSglyLnkElemType e1, const CycSglyLnkElemType e2);
 //如果e1>e2返回true,否则返回false
 

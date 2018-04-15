@@ -5,7 +5,7 @@
 
 _Bool StackInit_lnk(LnkStack *const lnsptr)
 {
-	lnsptr->top = (LnkStackElemType *)malloc(sizeof(LnkStackElemType));//维护易于操作的表头(栈顶)
+	lnsptr->top = (LnkStackNode *)malloc(sizeof(LnkStackNode));//维护易于操作的表头(栈顶)
 	if (NULL == lnsptr->top)
 		return false;
 	lnsptr->top->next = NULL;
@@ -43,9 +43,10 @@ _Bool StackClear_lnk(LnkStack *const lnsptr)
 	}
 	lnsptr->bottom = lnsptr->top;//重置栈底指针
 	lnsptr->stacksize = 0;//栈大小置0
+	return true;
 }
 
-_Bool StackEmpty_lnk(const LnkStack *const lnsptr)
+_Bool StackIsEmpty_lnk(const LnkStack *const lnsptr)
 {
 	return 0 == lnsptr->stacksize;
 }
@@ -62,7 +63,7 @@ _Bool StackGetTop_lnk(const LnkStack *const lnsptr, LnkStackElemType *const retp
 {
 	if (lnsptr->top == lnsptr->bottom)//栈空返回false
 		return false;
-	*retptr = lnsptr->top->next;//由指针返回栈顶元素
+	*retptr = lnsptr->top->elem;//由指针返回栈顶元素
 	return true;
 }
 

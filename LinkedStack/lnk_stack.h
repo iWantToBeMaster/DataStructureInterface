@@ -29,7 +29,7 @@ _Bool StackClear_lnk(LnkStack *const lnsptr);
 //初始条件:栈lnsptr已经存在
 //操作结果:栈lnsptr被清空
 
-_Bool StackEmpty_lnk(const LnkStack *const lnsptr);
+_Bool StackIsEmpty_lnk(const LnkStack *const lnsptr);
 //初始条件:栈lnsptr已经存在
 //操作结果:如果栈lnsptr为空栈,返回true,否则返回false
 

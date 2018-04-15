@@ -10,8 +10,8 @@ typedef int SqQueueElemType;
 typedef struct
 {
 	SqQueueElemType *base;		//队列内存空间的基址
-	int front;					//对首位置指示器
-	int rear;					//对尾位置指示器
+	int front;					//队首位置指示器
+	int rear;					//队尾位置指示器
 }SqQueue;
 
 _Bool QueueInit_sq(SqQueue *const sqqptr);
@@ -33,7 +33,7 @@ _Bool QueueIsFull_sq(const SqQueue *const sqqptr);
 //初始条件:队列*sqqptr已经存在
 //操作结果:队列*sqqptr为满队列返回true,否则返回false
 
-int QueueLength_sq(const SqQueue *const sqqptr);
+_Bool QueueLength_sq(const SqQueue *const sqqptr, int *const retsizeptr);
 //初始条件:队列*sqqptr已经存在
 //操作结果:返回队列*sqqptr元素的个数,即队列的长度
 

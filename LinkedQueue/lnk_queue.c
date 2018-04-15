@@ -14,7 +14,7 @@ _Bool QueueInit_lnk(LnkQueue *const lnkqptr)
 	return true;
 }
 
-void QueueDestroy_lnk(LnkQueue *const lnkqptr)
+_Bool QueueDestroy_lnk(LnkQueue *const lnkqptr)
 {
 	LnkQueueNode *p = lnkqptr->front, *q = NULL;
 
@@ -31,7 +31,7 @@ void QueueDestroy_lnk(LnkQueue *const lnkqptr)
 	return true;
 }
 
-void QueueClear_lnk(LnkQueue *const lnkqptr)
+_Bool QueueClear_lnk(LnkQueue *const lnkqptr)
 {
 	LnkQueueNode *p = lnkqptr->front->next, *q = NULL;
 
@@ -95,6 +95,8 @@ _Bool QueueDelete_lnk(LnkQueue *const lnkqptr, LnkQueueElemType *const retptr)
 {
 	LnkQueueNode *t = NULL;
 
+	if (0 == lnkqptr->queuesize)
+		return false;
 	t = lnkqptr->front->next;
 	*retptr = t->elem;
 	lnkqptr->front->next = t->next;

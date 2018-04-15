@@ -38,9 +38,12 @@ _Bool QueueIsFull_sq(const SqQueue *const sqqptr)
 	return sqqptr->rear + 1 == sqqptr->front;
 }
 
-int QueueLength_sq(const SqQueue *const sqqptr)
+_Bool QueueLength_sq(const SqQueue *const sqqptr,int *const retsizeptr)
 {
-	return (sqqptr->rear - sqqptr->front + MAX_QUEUE_SIZE) % MAX_QUEUE_SIZE;
+	if (NULL == sqqptr->base)
+		return false;
+	*retsizeptr = (sqqptr->rear - sqqptr->front + (MAX_QUEUE_SIZE + 1)) % (MAX_QUEUE_SIZE + 1);
+	return true;
 }
 
 _Bool QueueGetHead_sq(const SqQueue *const sqqptr, SqQueueElemType *const retptr)
@@ -56,7 +59,7 @@ _Bool QueueEnter_sq(SqQueue *const sqqptr, const SqQueueElemType *const elptr)
 	if (sqqptr->front == (sqqptr->rear + 1))//如果队列为满,返回false
 		return false;
 	*(sqqptr->base + sqqptr->rear) = *elptr;//队尾赋值
-	sqqptr->rear = (sqqptr->rear + 1) % MAX_QUEUE_SIZE;//队尾指示器指向下一位置
+	sqqptr->rear = (sqqptr->rear + 1) % (MAX_QUEUE_SIZE + 1);//队尾指示器指向下一位置
 	return true;
 }
 
@@ -65,7 +68,7 @@ _Bool QueueDelete_sq(SqQueue *const sqqptr, SqQueueElemType *const retptr)
 	if (sqqptr->front == sqqptr->rear)//若队列为空,返回false
 		return false;
 	*retptr = *(sqqptr->base + sqqptr->front);//指针返回队首元素
-	sqqptr->front = (sqqptr->front + 1) % MAX_QUEUE_SIZE;//队首指示器指向下以位置
+	sqqptr->front = (sqqptr->front + 1) % (MAX_QUEUE_SIZE + 1);//队首指示器指向下以位置
 	return true;
 }
 
@@ -76,6 +79,7 @@ void QueueTraverse_sq(const SqQueue *const sqqptr)
 	while (i != sqqptr->rear)
 	{
 		printf("%d ", *(sqqptr->base + i));
-		i = (i + 1) % MAX_QUEUE_SIZE;
+		i = (i + 1) % (MAX_QUEUE_SIZE + 1);
 	}
+	printf("\n");
 }

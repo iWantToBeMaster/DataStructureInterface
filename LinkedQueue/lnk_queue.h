@@ -24,11 +24,11 @@ typedef struct
 _Bool QueueInit_lnk(LnkQueue *const lnkqptr);
 //操作结果:构造一个空队列
 
-void QueueDestroy_lnk(LnkQueue *const lnkqptr);
+_Bool QueueDestroy_lnk(LnkQueue *const lnkqptr);
 //初始条件:队列*lnkqptr已经存在
 //操作结果:队列*lnkqptr被销毁,不再存在
 
-void QueueClear_lnk(LnkQueue *const lnkqptr);
+_Bool QueueClear_lnk(LnkQueue *const lnkqptr);
 //初始条件:队列*lnkqptr已经存在
 //操作结果:队列*lnkqptr被清空
 

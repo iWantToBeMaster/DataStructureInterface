@@ -114,7 +114,7 @@ _Bool ListInsNodeBefore_cycslnk(CycSLnkList *const slnklistptr, CycSLnkPosition 
 
 	while (p!=slnklistptr->head)	//求lspos的前驱结点
 	{
-		if (p == lspos)
+		if (p->next == lspos)
 			break;
 		p = p->next;
 	}
